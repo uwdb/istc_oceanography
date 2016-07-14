@@ -24,6 +24,8 @@ for sample_name in samples:
     kmers_df = sqlcontext.createDataFrame(kmer_rows)
     kmers_df.registerTempTable("kmers"+sample_name)
     sqlcontext.sql("select SampleID, kmer, count(*) as count from kmers{sample_name} group by SampleID, kmer order by count desc".format(sample_name=sample_name)).registerTempTable(sample_name + '_count')
+    #Uncomment the following to export
+    #sqlcontext.sql("select * from {s}".format(s=sample_name + '_count')).repartition(1).write.format('com.databricks.spark.csv').option("header", "true").save(sample_name+'_kmercount.csv')
 
 X_sql = """
 select a.SampleID as asample, b.SampleID as bsample,
@@ -40,7 +42,7 @@ select sum(acount) + sum(bcount) as sum_samp from X
 sqlcontext.sql(sum_sql).registerTempTable('sumX')
 
 Y_sql = """
-select asample, bsample, 1 - 2*sum(minv) / sum_samp from X, sumX
+select asample, bsample, 2*sum(minv) / sum_samp from X, sumX
 group by asample, bsample, sum_samp
 """
 sqlcontext.sql(Y_sql).show()
