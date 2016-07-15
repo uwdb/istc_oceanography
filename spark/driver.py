@@ -36,13 +36,18 @@ select a.SampleID as asample, b.SampleID as bsample,
 """.format(sample1=samples[0]+'_count', sample2=samples[1]+'_count')
 sqlcontext.sql(X_sql).registerTempTable('X')
 
-sum_sql = """
-select sum(acount) + sum(bcount) as sum_samp from X
-"""
-sqlcontext.sql(sum_sql).registerTempTable('sumX')
+suma_sql = """
+select sum(a.count) as sum_a from {s1} a
+""".format(s1=samples[0]+'_count') 
+sqlcontext.sql(suma_sql).registerTempTable('sumA')
+
+sumb_sql = """
+select sum(b.count) as sum_b from {s2} b
+""".format(s2=samples[1]+'_count') 
+sqlcontext.sql(sumb_sql).registerTempTable('sumB')
 
 Y_sql = """
-select asample, bsample, 2*sum(minv) / sum_samp from X, sumX
-group by asample, bsample, sum_samp
+select asample, bsample, 1 - 2*sum(minv) / (sum_a+sum_b) from X, sumA, sumB
+group by asample, bsample, sum_a, sum_b
 """
 sqlcontext.sql(Y_sql).show()
