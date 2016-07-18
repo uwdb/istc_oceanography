@@ -4,7 +4,7 @@ from pyspark.sql import SQLContext
 from pyspark.sql import Row
 
 k = 11 # Length of k-mers
-samples = ['S0001_n1000', 'S0002_n1000']
+samples = ['S0001', 'S0002']
 master_hostname = open("/root/spark-ec2/masters").read().strip()
 master_url = open("/root/spark-ec2/cluster-url").read().strip()
 context = SparkContext(master_url)
@@ -16,7 +16,7 @@ def extract_kmers(r):
         yield r.seq[i:i+k]
 
 for sample_name in samples:
-    sample_filename = "hdfs://{hostname}:9000/data/{sample_name}.csv".format(hostname=master_hostname, sample_name=sample_name)
+    sample_filename = "s3n://helgag/ocean_metagenome/overlapped/{sample_name}.csv".format(sample_name=sample_name)
     sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true', inferschema='true').load(sample_filename)
     sqlcontext.registerDataFrameAsTable(sample, sample_name)
     kmers = sample.flatMap(extract_kmers).collect()
