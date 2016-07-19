@@ -20,6 +20,8 @@ We only have mappings to 242 samples, even though we have 397 (overlapped) sampl
 These include 45 stations. (Each station has multiple samples.)
 The file `valid_stations.csv` contains a list of all stations on each cruise that we have a metadata link for.
 
+The file `valid_samples_GA02_filenames.csv` (and GA03) contains a list of all genomic sampleID filenames that we have a metadata link for.
+
 The main environmental metadata file is `GA02_IDP2014_v2_Discrete_Sample_Data.xlsx` (also included the same file in .csv format).
 You can join the mapping file to the metadata file on the `Station` column.
 Do the interpolation on the depth column `CTDPRS [dbar]`.
