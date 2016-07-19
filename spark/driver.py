@@ -34,9 +34,7 @@ for sample_name in samples:
                 StructField("seq", StringType(), True)])
     sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true').load(sample_filename, schema=customSchema).repartition(80)
     sample = sample.flatMap(extract_kmers).map(Row("kmer")).toDF().groupBy("kmer").agg(count("*"))
-    #Toggle comment the following to export the data
-    #sample.registerTempTable(sample_name + "_count")
     sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save(sample_name+'.csv')
-    #Or this for pushing to s3
+    #Pushing to s3
     #sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save('s3n://oceankmers/overlapped/'+sample_name+'.csv')
 
