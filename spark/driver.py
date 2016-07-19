@@ -2,12 +2,14 @@ from pyspark import SparkContext
 from pyspark import SparkConf
 from pyspark.sql import SQLContext
 from pyspark.sql import Row
+from pyspark.sql.types import *
+from pyspark.sql.functions import count
 
 def get_samples(filename):
     samples = []
     for sample in open(filename).readlines():
-        samples.append(sample.strip())
-    return sample
+        samples.append(sample.strip()[:-4])
+    return samples
 
 k = 11 # Length of k-mers
 samples = get_samples('/root/istc_oceanography/metadata/valid_samples_GA02_filenames.csv')
@@ -24,12 +26,17 @@ def extract_kmers(r):
 
 for sample_name in samples:
     sample_filename = "s3n://helgag/ocean_metagenome/overlapped/{sample_name}.csv".format(sample_name=sample_name)
-    sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true', inferschema='true').load(sample_filename).repartition(16)
-    kmers_df = sample.flatMap(extract_kmers).map(Row("kmer")).toDF()
-    kmers_df.registerTempTable("kmers"+sample_name)
-    sqlcontext.sql("select kmer, count(*) as count from kmers{sample_name} group by kmer".format(sample_name=sample_name)).registerTempTable(sample_name + '_count')
+    customSchema = StructType([ \
+                StructField("id", StringType(), True), \
+                StructField("seq", StringType(), True)])
+    sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true').load(sample_filename, schema=customSchema).repartition(80)
+    #sample.flatMap(extract_kmers).map(Row("kmer")).toDF().groupBy("kmer","SampleID").agg(count("*")).repartition(1).write.format('com.databricks.spark.csv').options(header='true').save('s3n://oceankmers/overlapped/'+sample_name+'.csv')
+    sample.flatMap(extract_kmers).map(Row("kmer")).toDF().groupBy("kmer").agg(count("*")).repartition(1).write.format('com.databricks.spark.csv').options(header='true').save(sample_name+'.csv')
+    #kmers_df.registerTempTable("kmers"+sample_name)
+    #sqlcontext.sql("select kmer, count(*) as count from kmers{sample_name} group by kmer".format(sample_name=sample_name)).repartition(1).write.format('com.databricks.spark.csv').options(header='true').save('s3n://oceankmers/overlapped/'+sample_name+'.csv')
+    #sqlcontext.sql("select kmer, count(*) as count from kmers{sample_name} group by kmer".format(sample_name=sample_name)).registerTempTable(sample_name + '_count')
     #Uncomment the following to export
-    sqlcontext.sql("select * from {s}".format(s=sample_name + '_count')).repartition(1).write.format('com.databricks.spark.csv').options(header='true').save('s3n://oceankmers/overlapped/'+sample_name+'.csv')
+    #sqlcontext.sql("select * from {s}".format(s=sample_name + '_count')).repartition(1).write.format('com.databricks.spark.csv').options(header='true').save('s3n://oceankmers/overlapped/'+sample_name+'.csv')
 
 #X_sql = """
 #select a.SampleID as asample, b.SampleID as bsample,
