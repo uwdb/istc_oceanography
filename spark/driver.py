@@ -17,7 +17,7 @@ def extract_kmers(r):
 
 for sample_name in samples:
     sample_filename = "s3n://helgag/ocean_metagenome/overlapped/{sample_name}.csv".format(sample_name=sample_name)
-    sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true', inferschema='true').load(sample_filename).limit(100000)
+    sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true', inferschema='true').load(sample_filename).limit(100000).repartition(10)
     kmers = sample.flatMap(extract_kmers).collect()
     kmer_rows = map(lambda x: Row(kmer=x),kmers)
     kmers_df = sqlcontext.createDataFrame(kmer_rows)
