@@ -43,14 +43,14 @@ def reverse_complement(s):
         new_s += complement[s[len(s)-i-1]]
     return new_s
 
-for sample_name in samples[7:]:  #the [7:] is temporary, need to fix later. 
+for sample_name in samples: 
     sample_filename = "s3n://helgag/ocean_metagenome/overlapped/{sample_name}.csv".format(sample_name=sample_name)
     customSchema = StructType([ \
                 StructField("id", StringType(), True), \
                 StructField("seq", StringType(), True)])
     sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true').load(sample_filename, schema=customSchema).repartition(80)
     sample = sample.flatMap(extract_kmers).map(Row("kmer")).toDF().groupBy("kmer").agg(count("*"))
-    sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save(sample_name+'.csv')
+    sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save(sample_name+str(k)+'.csv')
     
     # now for the non-overlapped version of the same dataset
     sample_filename = "s3n://helgag/ocean_metagenome/nonoverlapped/{sample_name}.csv".format(sample_name=sample_name)
@@ -59,6 +59,6 @@ for sample_name in samples[7:]:  #the [7:] is temporary, need to fix later.
                 StructField("seq", StringType(), True)])
     sample = sqlcontext.read.format('com.databricks.spark.csv').options(header='true').load(sample_filename, schema=customSchema).repartition(80)
     sample = sample.flatMap(extract_kmers).map(Row("kmer")).toDF().groupBy("kmer").agg(count("*")) 
-    sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save(sample_name+'NO.csv')
+    sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save(sample_name+str(k)+'NO.csv')
     #Pushing to s3
     #sample.repartition(1).write.format('com.databricks.spark.csv').options(header='true').save('s3n://oceankmers/overlapped/'+sample_name+'.csv')
