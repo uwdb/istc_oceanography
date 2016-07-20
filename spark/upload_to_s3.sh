@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # This script uploads generated data to S3
 
