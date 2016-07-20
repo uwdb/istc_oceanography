@@ -5,8 +5,8 @@
 # currently assumes account access and credentials set up
 command -v aws >/dev/null 2>&1 || { echo >&2 "aws-cli not found - aborting."; exit 1; }
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <input directory>"
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <input directory> <s3bucket> <s3dir>"
     exit 1
 fi
 
@@ -15,8 +15,8 @@ if [ ! -d $INDIR ]; then
     echo "Error: $INDIR not found"
 fi
 
-BUCKET="oceankmers"
-DIR="nonoverlapped"
+BUCKET=$2
+DIR=$3
 
 # Input directory
 S3="s3://${BUCKET}/${DIR}/"
