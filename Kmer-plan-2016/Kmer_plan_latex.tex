@@ -252,6 +252,8 @@
 \begin{document}
 % \maketitle
 
+\section{Entropy diversity index}
+
 We first tried measuring the “diversity” of each sample by the number of non-zero (unique) k-mers present in the sample.  This seemed unsatisfactory because we witnessed ``saturation'': most all k-mers were observed.
 
 Another measure is entropy.
@@ -273,6 +275,14 @@ In order to achieve numerical stability, we might instead consider the log-entro
 
 The above formulas also hold when we replace $u_i$ with 
 the counts from the degree distribution $j c_j$, where $c_j = $ ``the number of k-mers with frequency $j$''. 
+
+
+\section{Jaccard index}
+An alternative distance metric between two samples is the Jaccard index. This has the advantage over the Bray-Curtis dissimilarity of satisfying the trianlge inequality.
+
+\[
+J(x,y) = \dfrac{\sum_i \min(x_i,y_i)}{\sum_i \max(x_i,y_i)}
+\]
 
 
 \end{document}
