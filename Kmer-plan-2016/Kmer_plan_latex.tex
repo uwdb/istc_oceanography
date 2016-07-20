@@ -1,0 +1,278 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[nottoc]{tocbibind} % References in TOC
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[  
+  bookmarks=false,
+  hyperfootnotes=false,
+  hyperindex=false,
+  %pdfpagemode=UseNone,
+  %bookmarksopen=false,
+  hidelinks,  
+%  pagebackref=true,
+  pdftitle={Tmp ISTC Oceanography Stuff},  
+  pdfauthor={Dylan Hutchison}]{hyperref}
+\usepackage{amsmath}
+% \usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage[left=0.8in,right=0.8in,top=0.5in,bottom=0.8in]{geometry}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{relsize}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\tr}[0]{{\intercal}}
+\newcommand{\mxm}{{\,\oplus.\otimes\,}}
+\newcommand{\assoc}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\as}[1]{\ensuremath{\mathbf{#1}}}
+
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\usepackage{graphicx}
+\graphicspath{{.}{./img/}}
+\DeclareGraphicsExtensions{.eps,.pdf,.png}
+
+\usepackage{amsthm}
+\usepackage{amscd}
+%\usepackage{mathpartir}
+\usepackage{ stmaryrd }
+
+%%%%%%% !!!!!! Adobe font
+% \usepackage[utopia]{mathdesign} %\udtimes as \hourglass
+% \usepackage{unicode-math} % requires xe or lua -tex
+
+\usepackage{dsfont}
+%\usepackage{mathabx}
+%%\DeclareFontFamily{U}{matha}{\hyphenchar\font45}
+%%\DeclareFontShape{U}{matha}{m}{n}{
+%%      <5> <6> <7> <8> <9> <10> gen * matha
+%%      <10.95> matha10 <12> <14.4> <17.28> <20.74> <24.88> matha12
+%%      }{}
+%%\DeclareSymbolFont{matha}{U}{matha}{m}{n}
+%%\DeclareMathSymbol{\ovoid}        {2}{matha}{"6C}
+
+\usepackage{accents}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\usepackage{ wasysym }
+\newcommand{\redr}{\raisebox{.65ex}{$\underaccent{\,\to}{\text{\footnotesize $\oplus$}}$}}
+\newcommand{\redrblank}{\raisebox{.65ex}{$\underaccent{\,\to}{\text{\footnotesize $\fullmoon$}}$}}
+
+%\usepackage{subcaption}
+\usepackage{subfig}
+\usepackage{adjustbox}
+\usepackage{calc}
+
+\usepackage{todonotes}
+\usepackage{tabulary}
+\usepackage{array}
+%\newcolumntype{L}{>{\centering\arraybackslash}m}
+
+\usepackage{varwidth}
+\usepackage{verbatim}
+\newenvironment{centerverbatim}{%
+  \par
+  \centering
+  \varwidth{\linewidth}%
+  \verbatim
+}{%
+  \endverbatim
+  \endvarwidth
+  \par
+}
+
+\makeatletter
+\newcommand\bigincircbin
+{%
+  \mathpalette\@bigincircbin
+}
+\newcommand\@bigincircbin[2]
+{%
+  \mathbin%
+  {%
+    \ooalign{\hidewidth$#1#2$\hidewidth\crcr$#1\bigcirc$}%
+  }%
+}
+\makeatother
+\makeatletter
+\newcommand\incircbin
+{%
+  \mathpalette\@incircbin
+}
+\newcommand\@incircbin[2]
+{%
+  \mathbin%
+  {%
+    \ooalign{\hidewidth$#1#2$\hidewidth\crcr$#1\fullmoon$}%
+  }%
+}
+\makeatother
+
+% outer joins
+\def\ojoin{\setbox0=\hbox{$\bowtie$}%
+  \rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
+\def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
+\def\rightouterjoin{\mathbin{\bowtie\mkern-5.8mu\ojoin}}
+\def\fullouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie\mkern-5.8mu\ojoin}}
+
+
+\newcommand{\bif}{\text{ if }}
+\newcommand{\bthen}{\text{ then }}
+\newcommand{\belse}{\text{ else }}
+\newcommand{\str}{\text{string}}
+\newcommand{\true}{\text{true}}
+\newcommand{\false}{\text{false}}
+\newcommand{\nul}{\texttt{null}}
+\newcommand{\kron}{\bigincircbin{\otimes}}
+\newcommand{\omid}{\incircbin{\text{\raisebox{0.75pt}{\scalebox{0.65}{$|$}}}}}
+\newcommand{\oland}{\incircbin{\text{\raisebox{0.4pt}{\scalebox{0.85}{$\wedge$}}}}}
+\newcommand{\olor}{\incircbin{\text{\raisebox{-0.4pt}{\scalebox{0.85}{$\vee$}}}}}
+\newcommand{\oeq}{\incircbin{\text{\raisebox{0.75pt}{\scalebox{0.7}{$=$}}}}}
+% \newcommand{\oeq}{\text{\scalebox{0.65}{ $\incircbin{\text{\raisebox{0.75pt}{\scalebox{0.7}{$=$}}}}$ }}}
+% \newcommand\oeq{%
+%   \mathchoice{\mathbin{\;\rotatebox{90}{ \incircbin{\text{\raisebox{0.75pt}{\scalebox{0.7}{$=$}}}} }}}%
+%              {\mathbin{\;\rotatebox{90}{ \incircbin{\text{\raisebox{0.75pt}{\scalebox{0.7}{$=$}}}} }}}%
+%              {\mathbin{\;\rotatebox{90}{\scalebox{0.65}{ \incircbin{\text{\raisebox{0.75pt}{\scalebox{0.7}{$=$}}}} }}}%
+%              {\mathbin{\;\rotatebox{90}{\scalebox{0.65}{ \incircbin{\text{\raisebox{0.75pt}{\scalebox{0.7}{$=$}}}} }}}}%
+% }
+\newcommand{\ogeq}{\incircbin{\text{\raisebox{0.78pt}{\scalebox{0.61}{$\geq$}}}}}
+\newcommand{\mxz}{{\,\oplus.\oland\,}}
+\newcommand{\cxm}{{\,\omid.\otimes\,}}
+\newcommand{\oxm}[1][]{{\,\fullmoon_{#1}.\otimes\,}}
+% \newcommand{\join}{\bowtie}
+% \newcommand{\sjoin}{\hat{\join}}
+\newcommand\uproduct{%
+  \mathchoice{\mathbin{\;\rotatebox{90}{$\Bowtie$}}}%
+             {\mathbin{\;\rotatebox{90}{$\Bowtie$}}}%
+             {\mathbin{\;\rotatebox{90}{\scalebox{0.65}{$\Bowtie$}}}}%
+             {\mathbin{\;\rotatebox{90}{\scalebox{0.65}{$\Bowtie$}}}}%
+}
+% \newcommand{\union}{\uproduct}
+
+\DeclareMathOperator{\join}{\bowtie}
+\DeclareMathOperator{\joino}{\bowtie_\otimes}
+\DeclareMathOperator{\sjoin}{\hat{\bowtie}}
+\DeclareMathOperator{\sjoino}{\hat{\bowtie}_\otimes}
+\DeclareMathOperator{\union}{\uproduct}
+\DeclareMathOperator{\uniono}{\uproduct_\oplus}
+\DeclareMathOperator{\ident}{Ident}
+\DeclareMathOperator{\zip}{zip}
+\DeclareMathOperator{\reduce}{reduce}
+\DeclareMathOperator{\sortBy}{sortBy}
+\DeclareMathOperator{\rand}{rand}
+\DeclareMathOperator{\triustrict}{triuStrict}
+\DeclareMathOperator{\arity}{arity}
+\DeclareMathOperator{\get}{get}
+\DeclareMathOperator{\abs0}{Abs0}
+\DeclareMathOperator{\fil}{fill}
+\DeclareMathOperator{\tupcons}{tupCons}
+\DeclareMathOperator{\zero}{zero}
+\DeclareMathOperator{\perm}{perm}
+\DeclareMathOperator{\slice}{slice}
+\DeclareMathOperator{\bag}{bag}
+\DeclareMathOperator{\filter}{filter}
+\DeclareMathOperator{\idx}{index}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\suppstrict}{suppStrict}
+\DeclareMathOperator{\cast}{cast}
+\DeclareMathOperator{\ve}{vec}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\col}{colm}
+\DeclareMathOperator{\row}{rowm}
+\DeclareMathOperator{\colnz}{col}
+\DeclareMathOperator{\rownz}{row}
+\DeclareMathOperator{\keynz}{key}
+\DeclareMathOperator{\valnz}{val}
+\DeclareMathOperator{\keytran}{fkey}
+\DeclareMathOperator{\fst}{fst}
+\DeclareMathOperator{\snd}{snd}
+\DeclareMathOperator{\thd}{thd}
+\DeclareMathOperator{\fstsnd}{fstsnd}
+\DeclareMathOperator{\rmap}{rmap}
+\DeclareMathOperator{\cmap}{cmap}
+\DeclareMathOperator{\map}{map}
+\DeclareMathOperator{\mapnz}{mapnz}
+\DeclareMathOperator{\kmap}{kmap}
+\DeclareMathOperator{\collapse}{collapse}
+\DeclareMathOperator{\keyval}{keyval}
+\DeclareMathOperator{\rowval}{rowval}
+\DeclareMathOperator{\colval}{colval}
+\DeclareMathOperator{\maptoval}{map2val}
+\DeclareMathOperator{\maptokey}{map2key}
+\DeclareMathOperator{\bwrite}{write}
+\DeclareMathOperator{\bread}{read}
+\DeclareMathOperator{\promote}{promote}
+\DeclareMathOperator{\rename}{rename}
+\DeclareMathOperator{\intro}{intro}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\valueinv}{valueinv}
+\DeclareMathOperator{\flatten}{flatten}
+\newcommand{\inv}{^{\raisebox{.2ex}{$\scriptscriptstyle-1$}}}
+
+\newcommand{\lrparen}[1]{% \llrrparen{..}
+  \left(#1\right)}
+\newcommand{\lrbracket}[1]{% \lrbracket{..}
+  \left[#1\right]}
+\newcommand{\lrceil}[1]{% \lrbracket{..}
+  \left\lceil#1\right\rceil}
+\newcommand{\llrrbracket}[1]{% \llrrbracket{..}
+  \left[\mkern-3mu\left[#1\right]\mkern-3mu\right]}
+\newcommand{\llrrparen}[1]{% \llrrparen{..}
+  \left(\mkern-6mu\left(#1\right)\mkern-6mu\right)}
+
+% Warning: incompatible with tabularx
+\usepackage{arydshln}
+
+\usepackage{venndiagram}
+
+\usepackage{url}
+
+% \usepackage{glossaries}
+% \glstoctrue
+% \makeglossaries
+% \newglossaryentry{UNION}%
+% {%
+%   name={\ensuremath{\union}},
+%   description={Table Union}%,
+%   % sort={L}
+% }
+
+
+% In line: \gls{lengthtree}. In math mode: 
+% \[
+%   \gls{lengthtree}
+% \]
+
+
+
+
+
+% \author{Dylan Hutchison, Bill Howe, Dan Suciu \vspace{0.25em} \\  University of Washington}
+% \title{\textsc{Lara}: A Key-Value Algebra underlying Arrays and Relations}
+% \date{{\bfseries Draft}: April 1, 2016}
+\begin{document}
+% \maketitle
+
+We first tried measuring the “diversity” of each sample by the number of non-zero (unique) k-mers present in the sample.  This seemed unsatisfactory because we witnessed ``saturation'': most all k-mers were observed.
+
+Another measure is entropy.
+Fix a given sample.
+Let $u_i$ be the count of k-mer $i$ in the sample, $0 \leq i \leq 4^k-1$.
+The ``probability'' of each k-mer is $p_i = \alpha u_i$, with normalizing constant $\alpha = 1/(\sum_i u_i)$.
+\begin{align*}
+h &= \sum_i p_i \log p_i \\
+ &= \sum_i \alpha u_i \log (\alpha u_i) \\
+ &= \alpha (\log \alpha \sum_i u_i + \sum_i (u_i \log u_i))
+\end{align*}
+
+In order to achieve numerical stability, we might instead consider the log-entropy
+\begin{align*}
+\log h &= \log( \sum_i p_i \log p_i) \\
+ &= \log \alpha + \log(\log \alpha \sum_i u_i + \sum_i (u_i \log u_i)) \\
+ &= -\log(\sum_i u_i) + \log(-\log(\sum_i u_i) \sum_i u_i + \sum_i (u_i \log u_i)) 
+\end{align*}
+
+The above formulas also hold when we replace $u_i$ with 
+the counts from the degree distribution $j c_j$, where $c_j = $ ``the number of k-mers with frequency $j$''. 
+
+
+\end{document}
