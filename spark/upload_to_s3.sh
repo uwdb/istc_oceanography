@@ -16,12 +16,12 @@ if [ ! -d $INDIR ]; then
 fi
 
 BUCKET="oceankmers"
-DIR="overlapped"
+DIR="nonoverlapped"
 
 # Input directory
 S3="s3://${BUCKET}/${DIR}/"
 
 for f in $(ls $INDIR); do
     # Upload the data to S3 - grants everyone read access
-    aws s3 cp $f $S3 --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+    aws s3 cp "${INDIR}/${f}" $S3 --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 done
