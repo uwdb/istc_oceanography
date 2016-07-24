@@ -39,3 +39,9 @@ for i = 1:size(X,1)
 end
 fclose(fid);
 
+
+%scatter(x,y,40,lon,'filled'); title('t-SNE BC 50x50 perp 2.5, color by longitude'); colorbar; colormap jet; text(x+10,y,Library);
+%scatter(x,y,40,lat,'filled'); title('t-SNE BC 50x50 perp 2.5, color by latitude'); colorbar; colormap jet; text(x+10,y,Library);
+%scatter(x,y,40,pressure,'filled'); title('t-SNE BC 50x50 perp 2.5, color by pressure'); colorbar; colormap jet; text(x+10,y,Library);
+
+
