@@ -51,3 +51,12 @@ figure; scatter(x,y,40,depth,'filled'); title('t-SNE BC 50x50 perp 2.5, color by
 figure; scatter(x,y,40,temp,'filled'); title('t-SNE BC 50x50 perp 2.5, color by temperature (deg C)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-temp'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-temp','-dpng', '-r0');
 figure; scatter(x,y,40,sal,'filled'); title('t-SNE BC 50x50 perp 2.5, color by salinity (pss-78)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-sal'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-sal','-dpng', '-r0');
 
+
+figure; semilogx(norm_cnt, cnt_norm_cnt, 'o', norm_cnt_3, cnt_norm_cnt_3, '+', norm_cnt_4, cnt_norm_cnt_4, '*');
+legend('S0002','S0003','S0004'); xlabel('log(normalized abundance)'); ylabel('frequency'); title('frequency of normalized relative kmer abundances, k=11');
+
+figure; scatter(norm_cnt, sum_ct); xlabel('Peak relative abundance'); ylabel('Total number of kmers'); text(norm_cnt, sum_ct, num2str(Library));
+figure; scatter(EntropySkew50, sum_ct); xlabel('Entropy Skew'); ylabel('Total number of kmers'); text(EntropySkew50, sum_ct, num2str(Library));
+figure; scatter(Simpsondiversity50, norm_cnt); xlabel('Simpson diversity'); ylabel('Peak relative abundance'); text(Simpsondiversity50, norm_cnt, num2str(Library));
+figure; scatter(EntropySkew50, norm_cnt); xlabel('Entropy Skew'); ylabel('Peak relative abundance'); text(EntropySkew50, norm_cnt, num2str(Library));
+
