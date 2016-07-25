@@ -40,8 +40,14 @@ end
 fclose(fid);
 
 
-%scatter(x,y,40,lon,'filled'); title('t-SNE BC 50x50 perp 2.5, color by longitude'); colorbar; colormap jet; text(x+10,y,Library);
-%scatter(x,y,40,lat,'filled'); title('t-SNE BC 50x50 perp 2.5, color by latitude'); colorbar; colormap jet; text(x+10,y,Library);
-%scatter(x,y,40,pressure,'filled'); title('t-SNE BC 50x50 perp 2.5, color by pressure'); colorbar; colormap jet; text(x+10,y,Library);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ct = 'default'; % 'jet'
+dims = [0 0 6 3];
+figure; scatter(x,y,40,lon,'filled'); title('t-SNE BC 50x50 perp 2.5, color by longitude (deg E)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-lon'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-lon','-dpng', '-r0');
+figure; scatter(x,y,40,lat,'filled'); title('t-SNE BC 50x50 perp 2.5, color by latitude (deg N)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-lat'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-lat','-dpng', '-r0');
+figure; scatter(x,y,40,pressure,'filled'); title('t-SNE BC 50x50 perp 2.5, color by pressure (dbar)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-pressure'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-pressure','-dpng', '-r0');
+figure; scatter(x,y,40,depth,'filled'); title('t-SNE BC 50x50 perp 2.5, color by depth (m)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-depth'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-depth','-dpng', '-r0');
+figure; scatter(x,y,40,temp,'filled'); title('t-SNE BC 50x50 perp 2.5, color by temperature (deg C)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-temp'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-temp','-dpng', '-r0');
+figure; scatter(x,y,40,sal,'filled'); title('t-SNE BC 50x50 perp 2.5, color by salinity (pss-78)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-sal'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-sal','-dpng', '-r0');
 
