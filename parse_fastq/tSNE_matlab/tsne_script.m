@@ -42,8 +42,8 @@ fclose(fid);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-ct = 'default'; % 'jet'
-dims = [0 0 6 3];
+ct = 'jet'; % 'jet'
+dims = [0 0 15 9];
 figure; scatter(x,y,40,lon,'filled'); title('t-SNE BC 50x50 perp 2.5, color by longitude (deg E)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-lon'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-lon','-dpng', '-r0');
 figure; scatter(x,y,40,lat,'filled'); title('t-SNE BC 50x50 perp 2.5, color by latitude (deg N)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-lat'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-lat','-dpng', '-r0');
 figure; scatter(x,y,40,pressure,'filled'); title('t-SNE BC 50x50 perp 2.5, color by pressure (dbar)'); colorbar; colormap(ct); text(x+10,y,Library); savefig('tsne-pressure'); fig = gcf; fig.PaperUnits = 'inches'; fig.PaperPosition = dims; print('tsne-pressure','-dpng', '-r0');
