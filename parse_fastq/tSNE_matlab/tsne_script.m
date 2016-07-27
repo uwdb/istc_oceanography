@@ -55,8 +55,18 @@ figure; scatter(x,y,40,sal,'filled'); title('t-SNE BC 50x50 perp 2.5, color by s
 figure; semilogx(norm_cnt, cnt_norm_cnt/1189585624, 'o', norm_cnt_3, cnt_norm_cnt_3/985637920, '+', norm_cnt_4, cnt_norm_cnt_4/903513026, '*');
 legend('S0002','S0003','S0004'); xlabel('log(normalized abundance)'); ylabel('normalized frequency'); title('frequency of normalized relative kmer abundances, k=11');
 
-figure; semilogx(norm_cnt, cnt_norm_cnt/, 'o', norm_cnt_3, cnt_norm_cnt_3, '+', norm_cnt_4, cnt_norm_cnt_4, '*');
+figure; semilogx(norm_cnt, cnt_norm_cnt, 'o', norm_cnt_3, cnt_norm_cnt_3, '+', norm_cnt_4, cnt_norm_cnt_4, '*');
 legend('S0002','S0003','S0004'); xlabel('log(normalized abundance)'); ylabel('frequency'); title('frequency of normalized relative kmer abundances, k=11');
+
+figure; semilogx(norm_cnt, cnt_norm_cnt, 'o');
+legend('Srand01'); xlabel('log(normalized abundance)'); ylabel('frequency'); title('frequency of normalized relative kmer abundances of a Random Sequence, GC prob.=0.417, k=11');
+
+figure; semilogx(norm_cnt, cnt_norm_cnt, 'o', norm_cnt_3, cnt_norm_cnt_3, '+', norm_cnt_4, cnt_norm_cnt_4, '*', norm_cntr, cnt_norm_cntr, 'x');
+legend('S0002','S0003','S0004','Srand01'); xlabel('log(normalized abundance)'); ylabel('frequency'); title('frequency of normalized relative kmer abundances, k=11');
+
+figure; semilogx(norm_cnt, cnt_norm_cnt/1189585624, 'o', norm_cnt_3, cnt_norm_cnt_3/985637920, '+', norm_cnt_4, cnt_norm_cnt_4/903513026, '*', norm_cntr, cnt_norm_cntr/963323535, 'x');
+legend('S0002','S0003','S0004','Srand01'); xlabel('log(normalized abundance)'); ylabel('normalized frequency'); title('frequency of normalized relative kmer abundances, k=11');
+
 
 
 figure; scatter(norm_cnt, sum_ct); xlabel('Peak relative abundance'); ylabel('Total number of kmers'); text(norm_cnt, sum_ct, num2str(Library));
