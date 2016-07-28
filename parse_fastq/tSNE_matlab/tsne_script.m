@@ -79,6 +79,9 @@ legend('S0002','S0003','S0004','Srand01','Srand02','Srand03'); xlabel('normalize
 figure; semilogx(norm_cnt, cnt_norm_cnt/(4^11), 'o', norm_cnt_3, cnt_norm_cnt_3/(4^11), '+', norm_cnt_4, cnt_norm_cnt_4/(4^11), '*', norm_cntr, cnt_norm_cntr/(4^11), 'x', norm_cntr2, cnt_norm_cntr2/(4^11), 'd', norm_cntr3, cnt_norm_cntr3/(4^11), 's', norm_cntr4, cnt_norm_cntr4/(4^11), '^');
 legend('S0002','S0003','S0004','Srand01','Srand02','Srand03','Srand04'); xlabel('normalized abundance'); ylabel('normalized frequency'); title('frequency of normalized relative kmer abundances, k=11');
 
+figure; semilogx(norm_cnt, cnt_norm_cnt/(4^11), 'o', norm_cnt_3, cnt_norm_cnt_3/(4^11), '+', norm_cnt_4, cnt_norm_cnt_4/(4^11), '*', norm_cntr, cnt_norm_cntr/(4^11), 'x', norm_cntr2, cnt_norm_cntr2/(4^11), 'd', norm_cntr3, cnt_norm_cntr3/(4^11), 's', norm_cntr4, cnt_norm_cntr4/(4^11), '^', norm_cntr5, cnt_norm_cntr5/(4^13), 'v');
+legend('S0002','S0003','S0004','Srand01','Srand02','Srand03','Srand04','Srand05'); xlabel('normalized abundance'); ylabel('normalized frequency'); title('frequency of normalized relative kmer abundances, k=11');
+
 
 
 figure; scatter(norm_cnt, sum_ct); xlabel('Peak relative abundance'); ylabel('Total number of kmers'); text(norm_cnt, sum_ct, num2str(Library));
