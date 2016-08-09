@@ -49,16 +49,16 @@ if [ ! -z "$t" ] && [ "$t" == "$ResultRelation" ]; then
 else
 	# do the ingest
 
-	if [ -e "/tmp/myriaIngestDir" ]; then
-		if [ -d "/tmp/myriaIngestDir" ]; then
-			TDIR="/tmp/myriaIngestDir"
+	if [ -e "/tmp/myriaIngestDir_$(whoami)" ]; then
+		if [ -d "/tmp/myriaIngestDir_$(whoami)" ]; then
+			TDIR="/tmp/myriaIngestDir_$(whoami)" 
 		else
 			echo "Warning: the path \"/tmp/myriaIngestDir\" is taken"
 			TDIR=`mktemp -d myriaIngestDir_XXXXXXXXXX`
 		fi
 	else
-		mkdir "/tmp/myriaIngestDir"
-		TDIR="/tmp/myriaIngestDir"
+		mkdir "/tmp/myriaIngestDir_$(whoami)"
+		TDIR="/tmp/myriaIngestDir_$(whoami)"
 	fi
 	echo "{ \"userName\" : \"public\", \"programName\" : \"adhoc\", \"relationName\" : \"$ResultRelation\" }" > "$TDIR/relationKey.json"
 	echo '{ "columnTypes": ["STRING_TYPE", "LONG_TYPE"], "columnNames": ["kmer", "cnt"] }' > "$TDIR/schema.json"
