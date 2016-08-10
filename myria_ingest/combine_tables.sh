@@ -25,18 +25,18 @@ command -v jsawk >/dev/null 2>&1 || { echo >&2 "I require 'jsawk' but it's not i
 
 str=""
 while read rn; do {
-#       echo "$rn"
-	  sid=`expr "$rn" : '.*\(S[0-9]\{4\}\)'`
-	    if [ -z "$str" ]; then
-		    str="$rn = scan($rn); R = [from $rn emit \"$sid\" as sampleid, kmer, cnt];
+
+    sid=`expr "$rn" : '.*\(S[0-9]\{4\}\)'`
+
+    if [ -z "$str" ]; then
+      str="$rn = scan($rn); R = [from $rn emit \"$sid\" as sampleid, kmer, cnt];
 "
-		    else
-		str="$str $rn = scan($rn); R = R + [from $rn emit \"$sid\" as sampleid, kmer, cnt];
+    else
+      str="$str$rn = scan($rn); R = R + [from $rn emit \"$sid\" as sampleid, kmer, cnt];
 "
-		  fi
-	      #"t$rn = load(\" "
+    fi
 }; done < <(curl -s -XGET "$MyriaHostAndPort"/dataset/search?q="$QueryTerm" \
-    | jsawk 'return this.relationName' -a 'return this.join("\n")' ) #> /tmp/o
+    | jsawk 'return this.relationName' -a 'return this.join("\n")' ) || :
 
 str="$str
 store(R, ${ResultRelation}_Pkmer, [kmer]);
@@ -44,4 +44,5 @@ store(R, ${ResultRelation}_Psampleid, [sampleid]);"
 
 echo "$str"
 
-# cat store_11_forward | tr '\n' ' ' | less
+# to remove newlines from the output
+# | tr '\n' ' ' | less

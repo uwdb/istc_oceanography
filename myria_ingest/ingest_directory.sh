@@ -14,7 +14,23 @@ _usage() {
 #/home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_11_cnt/S0002_11_cnt.csv
 #'/home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar'
 #./ingest_myria.sh -f localhost:8753 /home/dhutchis/gits/istc_oceanography/myria_ingest/S0002_11_cnt_cut.csv kmercnt_11_forward_S0002_cut   -cp /home/dhutchis/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11
-# ./ingest_directory.sh localhost:8753 /home/dhutchis/gits/istc_oceanography/parse_fastq/nohead testpre_ _forward  -cp /home/dhutchis/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11
+
+# ./ingest_directory.sh localhost:8753 /home/dhutchis/gits/istc_oceanography/extracted-kmers/nohead testpre_ _forward  -cp /home/dhutchis/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11
+# ./ingest_directory.sh http://ec2-54-213-84-235.us-west-2.compute.amazonaws.com:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_11_cnt kmercnt_11_rc_ _ol  -cp /home/gridsan/groups/istcdata/fromDylan/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11 -rc
+
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_11_cnt kmercnt_11_forward_ _ol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_11_cnt kmercnt_11_rc_ _ol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11 -rc
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_11_cnt kmercnt_11_lex_ _ol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11 -lex
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_non_overlapped_11_cnt kmercnt_11_forward_ _nol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_non_overlapped_11_cnt kmercnt_11_rc_ _nol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11 -rc
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_non_overlapped_11_cnt kmercnt_11_lex_ _nol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 11 -lex
+
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_13_cnt kmercnt_13_forward_ _ol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 13
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_13_cnt kmercnt_13_rc_ _ol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 13 -rc
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_13_cnt kmercnt_13_lex_ _ol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 13 -lex
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_non_overlapped_13_cnt kmercnt_13_forward_ _nol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 13
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_non_overlapped_13_cnt kmercnt_13_rc_ _nol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 13 -rc
+# ./ingest_directory.sh node-109:8753 /home/gridsan/groups/istcdata/datasets/ocean_metagenome/csv_data/parsed_non_overlapped_13_cnt kmercnt_13_lex_ _nol  -cp /home/gridsan/dhutchison/gits/graphulo/target/graphulo-1.0.0-SNAPSHOT-all.jar edu.mit.ll.graphulo_ocean.OceanPipeKmers  -K 13 -lex
 
 if [ "$#" -lt "5" ]; then
   _usage
