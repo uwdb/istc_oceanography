@@ -75,9 +75,12 @@ while read fn; do {
 	  echo "$fn: $sid"
 
 		for i in `seq 1 4`; do
-			[ "$i" = "4" ] && { echo "failure after 3 attempted retries; exiting"; exit 1 }
-		  if [ "$force" == "true" ]; then
-			  "$SCRIPT_DIR/ingest_myria.sh" -f "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
+		    if [ "$i" = "4" ]; then
+                echo "failure after 3 attempted retries; exiting"
+                exit 1
+            fi
+		    if [ "$force" == "true" ]; then
+		        "$SCRIPT_DIR/ingest_myria.sh" -f "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
 			else
 				"$SCRIPT_DIR/ingest_myria.sh" "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
 			fi
