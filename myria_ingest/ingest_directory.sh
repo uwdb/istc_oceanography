@@ -74,10 +74,13 @@ while read fn; do {
 	  sid=`expr "$fn" : '.*\(S[0-9]\{4\}\)'`
 	  echo "$fn: $sid"
 
-	  if [ "$force" == "true" ]; then
-		  "$SCRIPT_DIR/ingest_myria.sh" -f "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@
-		else
-			"$SCRIPT_DIR/ingest_myria.sh" "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@
-		fi
+		for i in `seq 1 4`; do
+			[ "$i" = "4" ] && { echo "failure after 3 attempted retries; exiting"; exit 1 }
+		  if [ "$force" == "true" ]; then
+			  "$SCRIPT_DIR/ingest_myria.sh" -f "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
+			else
+				"$SCRIPT_DIR/ingest_myria.sh" "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
+			fi
+		done
 }; done < <(ls "$InputDirectory"/*S*.csv -1 ) #> /tmp/o
 
