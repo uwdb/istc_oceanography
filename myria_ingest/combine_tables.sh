@@ -48,8 +48,8 @@ while read rn; do {
     | jsawk 'return this.relationName' -a 'return this.join("\n")' ) || :
 
 str="$str
-store(R, ${ResultRelation}_Pkmer, [kmer]);
-store(R, ${ResultRelation}_Psampleid, [sampleid]);"
+store(R, ${ResultRelation}_Pkmer, [kmer]);"
+#store(R, ${ResultRelation}_Psampleid, [sampleid]);
 
 echo "$str"
 

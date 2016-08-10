@@ -34,8 +34,8 @@ while read rn; do {
       continue
     fi
 
-    echo "/user-${arr[0]}/program-${arr[1]}/relation-${arr[2]}/"
-    curl -s -XDELETE "$MyriaHostAndPort/dataset/user-${arr[0]}/program-${arr[1]}/relation-${arr[2]}/"
+    echo "DELETE: /user-${arr[0]}/program-${arr[1]}/relation-${arr[2]}/"
+    curl -XDELETE "$MyriaHostAndPort/dataset/user-${arr[0]}/program-${arr[1]}/relation-${arr[2]}/"
 
 }; done < <(curl -s -XGET "$MyriaHostAndPort"/dataset/search?q="${QueryPrefix}${QuerySuffix}" \
     | jsawk 'return this.userName+" "+this.programName+" "+this.relationName' -a 'return this.join("\n")' ) || :
