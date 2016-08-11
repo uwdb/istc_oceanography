@@ -3,7 +3,7 @@ set -e #command fail -> script fail
 set -u #unset variable reference causes script fail
 
 _usage() {
-  echo "Usage: $0 myria_host:myria_port QueryPrefix QuerySuffix ResultRelation"
+  echo "Usage: $0 myria_host:myria_port myria_web_host:myria_web_port QueryPrefix QuerySuffix ResultRelation"
   echo "  QueryPrefix: the search term prefix for relations in Myria to combine"
   echo "  QuerySuffix: the search term suffix for relations in Myria to combine"
   echo "  ResultRelation: the name of the new relation to store in Myria"
@@ -16,14 +16,17 @@ _usage() {
 # ./combine_tables.sh localhost:8753 kmercnt_11_rc_S _ol kmercnt_11_rc_ol > kmercnt_11_rc_ol
 # ./combine_tables.sh localhost:8753 kmercnt_11_lex_S _ol kmercnt_11_lex_ol > kmercnt_11_lex_ol
 
-if [ "$#" -lt "4" ]; then
+# ./combine_tables.sh localhost:8753 localhost:8124 kmercnt_11_rc_S _ol kmercnt_11_rc_ol
+
+if [ "$#" -lt "5" ]; then
   _usage
 fi
 
 MyriaHostAndPort="${1}"
-QueryPrefix="$2"
-QuerySuffix="$3"
-ResultRelation="$4"
+MyriaWebHostAndPort="${2}"
+QueryPrefix="$3"
+QuerySuffix="$4"
+ResultRelation="$5"
 
 # Check pre-requisite
 command -v jsawk >/dev/null 2>&1 || { echo >&2 "I require 'jsawk' but it's not installed. Aborting."; exit 1; }
@@ -52,6 +55,29 @@ store(R, ${ResultRelation}_Pkmer, [kmer]);"
 #store(R, ${ResultRelation}_Psampleid, [sampleid]);
 
 echo "$str"
+
+if [ -e "/tmp/myriaIngestDir_$(whoami)" ]; then
+  if [ -d "/tmp/myriaIngestDir_$(whoami)" ]; then
+    TDIR="/tmp/myriaIngestDir_$(whoami)" 
+  else
+    echo "Warning: the path \"/tmp/myriaIngestDir\" is taken"
+    TDIR=`mktemp -d myriaIngestDir_XXXXXXXXXX`
+  fi
+else
+  mkdir "/tmp/myriaIngestDir_$(whoami)"
+  TDIR="/tmp/myriaIngestDir_$(whoami)"
+fi
+
+echo "$str" > "$TDIR/combine_query.myl"
+
+CDBG="-o tmp" #"-o /dev/null"
+
+curl -s -D - $CDBG -XPOST "$MyriaWebHostAndPort"/execute -H "Content-type: multipart/form-data" \
+      -F "language=myrial" \
+      -F "profile=false" \
+      -F "multiway_join=false" \
+      -F "push_sql=false" \
+      -F "query=@$TDIR/combine_query.myl"
 
 # to remove newlines from the output
 # | tr '\n' ' ' | less

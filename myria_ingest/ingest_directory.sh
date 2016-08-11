@@ -72,7 +72,7 @@ shift; shift; shift; shift;
 
 while read fn; do {
 	  sid=`expr "$fn" : '.*\(S[0-9]\{4\}\)'`
-	  echo "$sid: $fn"
+	  #echo "$sid: $fn"
 
 		for i in `seq 1 4`; do
 	    if [ "$i" = "4" ]; then
@@ -80,9 +80,10 @@ while read fn; do {
           exit 1
       fi
 	    if [ "$force" == "true" ]; then
-	    	echo "Please execute the following:"
+	    	echo "sid: $SCRIPT_DIR/ingest_myria.sh" -f "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@
 	      "$SCRIPT_DIR/ingest_myria.sh" -f "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
 			else
+				echo "$sid: $SCRIPT_DIR/ingest_myria.sh" "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ 
 				"$SCRIPT_DIR/ingest_myria.sh" "$MyriaHostAndPort" "$fn" "$RelationPrefix$sid$RelationSuffix" $@ && break
 			fi
 		done
